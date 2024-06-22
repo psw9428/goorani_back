@@ -14,7 +14,7 @@ import java.util.List;
 public class UsersService {
     private final UsersRepository usersRepository;
 
-    public List<UsersGetResponse> getUser() {
+    public List<UsersGetResponse> getAllUser() {
         List<UsersGetResponse> userlist = new ArrayList<>();
         var dbuserlist = usersRepository.findAll();
         dbuserlist.forEach((users -> {
@@ -28,5 +28,8 @@ public class UsersService {
         return userlist;
     }
 
+    public UsersGetResponse getUserById(String id) {
+        return usersRepository.findByOauthId(id);
+    }
 
 }
