@@ -2,6 +2,8 @@ package com.group.gorani.users.service;
 
 
 import com.group.gorani.users.domain.Users;
+import com.group.gorani.users.dto.AddUserRequest;
+import com.group.gorani.users.dto.AddUserResponse;
 import com.group.gorani.users.dto.UsersGetResponse;
 import com.group.gorani.users.repository.UsersRepository;
 import lombok.AllArgsConstructor;
@@ -25,6 +27,16 @@ public class UsersService {
         );
     }
 
+    private Users AddUserRequestToUsers(AddUserRequest request) {
+        return new Users(
+                request.getId(),
+                request.getUsername(),
+                request.getSummary(),
+                request.getPoint(),
+                request.getNumOfHostTicket()
+        );
+    }
+
     public List<UsersGetResponse> getAllUser() {
         List<UsersGetResponse> userlist = new ArrayList<>();
         var dbuserlist = usersRepository.findAll();
@@ -44,6 +56,10 @@ public class UsersService {
         List<UsersGetResponse> userlist = new ArrayList<>();
         userlist.add(usersToUsersGetResponse(user));
         return userlist;
+    }
+
+    public void addUser(AddUserRequest request) {
+        usersRepository.save(AddUserRequestToUsers(request));
     }
 
 }
