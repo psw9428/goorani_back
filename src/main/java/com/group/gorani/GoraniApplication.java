@@ -10,4 +10,5 @@ public class GoraniApplication {
 		SpringApplication.run(GoraniApplication.class, args);
 	}
 
+
 }
