@@ -29,7 +29,14 @@ public class UsersService {
     }
 
     public UsersGetResponse getUserById(String id) {
-        return usersRepository.findByOauthId(id);
+        var user = usersRepository.findByIdName(id);
+        return new UsersGetResponse(
+                user.getId(),
+                user.getUsername(),
+                user.getSummary(),
+                user.getPoint(),
+                user.getNumOfHostTicket()
+        );
     }
 
 }

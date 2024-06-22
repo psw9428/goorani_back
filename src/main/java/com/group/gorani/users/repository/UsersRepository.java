@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface UsersRepository extends JpaRepository<Users, Long> {
 
-    @Query(value = "SELECT * FROM users WHERE id = :id", nativeQuery = true)
-    public UsersGetResponse findByOauthId(@Param("name") String id);
+    @Query("SELECT u FROM Users u WHERE u.id = :id")
+    Users findByIdName(@Param("id") String id);
 
 }

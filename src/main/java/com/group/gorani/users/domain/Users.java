@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Users {
     @Id
-    private Long keyId;
     private String id;
     private String username;
     private String summary;
