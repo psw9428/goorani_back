@@ -1,6 +1,7 @@
 package com.group.gorani.users.service;
 
 
+import com.group.gorani.users.domain.Users;
 import com.group.gorani.users.dto.UsersGetResponse;
 import com.group.gorani.users.repository.UsersRepository;
 import lombok.AllArgsConstructor;
@@ -14,29 +15,35 @@ import java.util.List;
 public class UsersService {
     private final UsersRepository usersRepository;
 
+    private UsersGetResponse usersToUsersGetResponse(Users u) {
+        return new UsersGetResponse(
+                u.getId(),
+                u.getUsername(),
+                u.getSummary(),
+                u.getPoint(),
+                u.getNumOfHostTicket()
+        );
+    }
+
     public List<UsersGetResponse> getAllUser() {
         List<UsersGetResponse> userlist = new ArrayList<>();
         var dbuserlist = usersRepository.findAll();
         dbuserlist.forEach((users -> {
-            userlist.add(new UsersGetResponse(
-                    users.getId(),
-                    users.getUsername(),
-                    users.getSummary(),
-                    users.getPoint(),
-                    users.getNumOfHostTicket()));
+            userlist.add(usersToUsersGetResponse(users));
         }));
         return userlist;
     }
-
-    public UsersGetResponse getUserById(String id) {
+    public List<UsersGetResponse> getUserById(String id) {
         var user = usersRepository.findByIdName(id);
-        return new UsersGetResponse(
-                user.getId(),
-                user.getUsername(),
-                user.getSummary(),
-                user.getPoint(),
-                user.getNumOfHostTicket()
-        );
+        List<UsersGetResponse> userlist = new ArrayList<>();
+        userlist.add(usersToUsersGetResponse(user));
+        return userlist;
+    }
+    public List<UsersGetResponse> getUserByName(String username) {
+        var user = usersRepository.findByUsername(username);
+        List<UsersGetResponse> userlist = new ArrayList<>();
+        userlist.add(usersToUsersGetResponse(user));
+        return userlist;
     }
 
 }
