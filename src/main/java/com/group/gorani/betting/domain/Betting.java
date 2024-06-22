@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Betting {
     @Id
-    private String _id;
+    private Long id;
     private String title;
     private String host_id;
     private String deadline;
