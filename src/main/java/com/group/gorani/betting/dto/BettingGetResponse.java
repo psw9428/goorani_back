@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class BettingGetResponse {
-    private String _id;
+    private Long id;
     private String title;
     private String host_id;
     private String deadline;

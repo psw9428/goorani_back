@@ -21,7 +21,7 @@ public class BettingService {
         var dbbettinglist = BettingRepository.findAll();
         dbbettinglist.forEach((betting -> {
             bettinglist.add(new BettingGetResponse(
-                    betting.get_id(),
+                    betting.getId(),
                     betting.getTitle(),
                     betting.getHost_id(),
                     betting.getDeadline(),
