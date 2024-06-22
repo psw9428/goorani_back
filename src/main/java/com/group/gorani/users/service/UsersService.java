@@ -3,7 +3,7 @@ package com.group.gorani.users.service;
 
 import com.group.gorani.users.domain.Users;
 import com.group.gorani.users.dto.AddUserRequest;
-import com.group.gorani.users.dto.AddUserResponse;
+import com.group.gorani.users.dto.EditUserRequest;
 import com.group.gorani.users.dto.UsersGetResponse;
 import com.group.gorani.users.repository.UsersRepository;
 import lombok.AllArgsConstructor;
@@ -26,8 +26,16 @@ public class UsersService {
                 u.getNumOfHostTicket()
         );
     }
-
     private Users AddUserRequestToUsers(AddUserRequest request) {
+        return new Users(
+                request.getId(),
+                request.getUsername(),
+                request.getSummary(),
+                request.getPoint(),
+                request.getNumOfHostTicket()
+        );
+    }
+    private Users EditUserRequestToUsers(EditUserRequest request) {
         return new Users(
                 request.getId(),
                 request.getUsername(),
@@ -60,6 +68,15 @@ public class UsersService {
 
     public void addUser(AddUserRequest request) {
         usersRepository.save(AddUserRequestToUsers(request));
+    }
+    public void editUser(String id, EditUserRequest request) {
+        deleteUser(id);
+        usersRepository.save(EditUserRequestToUsers(request));
+    }
+
+    public void deleteUser(String id) {
+        Users user = usersRepository.findByIdName(id);
+        usersRepository.delete(user);
     }
 
 }

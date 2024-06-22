@@ -1,8 +1,8 @@
 package com.group.gorani.users.controller;
 
-import com.group.gorani.users.domain.Users;
 import com.group.gorani.users.dto.AddUserRequest;
-import com.group.gorani.users.dto.AddUserResponse;
+import com.group.gorani.users.dto.EditUserRequest;
+import com.group.gorani.users.dto.MessageResponse;
 import com.group.gorani.users.dto.UsersGetResponse;
 import com.group.gorani.users.service.UsersService;
 import lombok.AllArgsConstructor;
@@ -33,8 +33,20 @@ public class UsersController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<AddUserResponse> addUser(@RequestBody AddUserRequest request) {
+    public ResponseEntity<MessageResponse> addUser(@RequestBody AddUserRequest request) {
         usersService.addUser(request);
-        return new ResponseEntity<>(new AddUserResponse("success!"), HttpStatus.OK);
+        return new ResponseEntity<>(new MessageResponse("success!"), HttpStatus.OK);
+    }
+
+    @PutMapping("/users/{id}")
+    public ResponseEntity<MessageResponse> editUser(@PathVariable String id ,@RequestBody EditUserRequest request) {
+        usersService.editUser(id, request);
+        return new ResponseEntity<>(new MessageResponse("success!"), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<MessageResponse> deleteUser(@PathVariable String id) {
+        usersService.deleteUser(id);
+        return new ResponseEntity<>(new MessageResponse("success!"), HttpStatus.OK);
     }
 }
